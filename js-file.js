@@ -75,7 +75,7 @@ const execute = function() {
             console.log(result) 
             console.log(splitted)
         }
-        display.value += result ;
+        display.value = result ;
     }
 }
 //clear function 
