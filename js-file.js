@@ -68,6 +68,7 @@ const execute = function() {
                 splitted.splice(0,2,result);
             } else if (operators[i] === "%") {
                 result = persentage(splitted[0]);
+                splitted.splice(0,2,result);
                 console.log(result)
     // gotta figure out how to do percentage correctly;
                 }
