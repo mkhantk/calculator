@@ -10,8 +10,8 @@ body {
 .screen {
     resize: none;
     overflow: hidden;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    /* word-wrap: break-word;
+    overflow-wrap: break-word; */
     text-align: end;
     color: white;
     font-size: 35px;

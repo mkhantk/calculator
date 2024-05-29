@@ -1,56 +1,94 @@
 //create function
 const add = function(a,b) {
-    return Number(a) + Number(b);
+    return a + b;
 }
 
 const minus = function(a,b) {
-    return Number(a) - Number(b);
+    return a - b;
 }
 
 const multiply = function(a,b) {
-    return Number(a) * Number(b);
+    return a * b;
 }
 
 const divide = function(a,b) {
-    return Number(a) / Number(b);
+    return a / b;
 }
+
+const persentage = function(a) {
+    return a/100;
+}
+
+//change font size automatically
+//further improvement needed !!!
+
 //execute function for = 
 const execute = function() {
     let joined = onDisplay.join("");
     // console.log(joined);
-    let splitted = joined.split(/[+\-x%\/]/);
+    let splitted = joined.split(/[+\-x%\/]/).map((e) => Number(e));
+    let operators = onDisplay.filter((e) => e === "+" || e === "-" || e === "x" || e === "/" || e === "%")
+    console.log(operators);
     // console.log(splitted); 
     //sanity check 
-    if (splitted.length > 1) {
-        if (onDisplay.includes("+")) {
-            result = add(splitted[0],splitted[1]);
+    // if (splitted.length > 1) {
+    //     if (onDisplay.includes("+")) {
+    //         result = add(splitted[0],splitted[1]);
             
-        } else if (onDisplay.includes("-")) {
-            result = minus(splitted[0],splitted[1]);
+    //     } else if (onDisplay.includes("-")) {
+    //         result = minus(splitted[0],splitted[1]);
             
-        } else if (onDisplay.includes("x")) {
-            result=  multiply(splitted[0],splitted[1]);
+    //     } else if (onDisplay.includes("x")) {
+    //         result=  multiply(splitted[0],splitted[1]);
             
-        } else if (onDisplay.includes("/")) {
-            result =  divide(splitted[0],splitted[1]);
+    //     } else if (onDisplay.includes("/")) {
+    //         result =  divide(splitted[0],splitted[1]);
             
-        } 
-        display.textContent += result;
-    }
+    //     } 
+    //     display.value += result;
+    if (splitted.length === 0 || operators.length === 0) {
+        // console.log(splitted)
+        // console.log(splitted.length)
+        display.value = "ERROR";
+
+    } else {
     
-    // console.log(result);
+        for (let i = 0; i < operators.length; i++) {
+            if (operators[i] === "+") {
+                result = Math.round(add(splitted[0],splitted[1]) * 100) / 100;
+                splitted.splice(0,2,result);
+            } else if (operators[i] === "-") {
+                result = minus(splitted[0],splitted[1]);
+                splitted.splice(0,2,result);
+            } else if (operators[i] === "x") {
+                result = multiply(splitted[0],splitted[1]);
+                splitted.splice(0,2,result);
+            } else if (operators[i] === "/") {
+                result = divide(splitted[0],splitted[1]);
+                splitted.splice(0,2,result);
+            } else if (operators[i] === "%") {
+                result = persentage(splitted[0]);
+                console.log(result)
+    // gotta figure out how to do percentage correctly;
+                }
+            console.log(result) 
+            console.log(splitted)
+        }
+        display.value += result ;
+    }
 }
 //clear function 
 const clear = function() {
-    display.textContent = "";
+    onDisplay = [];
+    display.value = "";
 }
 
 //backspace function 
 const backSpace = function() {
     onDisplay.pop();
-    display.textContent.substring(display.textContent.length - 1, 1);
+    display.value = display.value.slice(0,-1);
     console.log(onDisplay);
-    console.log(display.textContent)
+    console.log(display.value)
 
 }
 
@@ -100,20 +138,20 @@ arr.map((item)=> {
             backSpace();
             console.log("backspace function");
         } else if (e.target.id === "btn18") {
-            display.textContent += "\r\n"+ e.target.textContent;
+            display.value += "\r\n"+ e.target.textContent ;
             execute();
             
             // console.log(e.target.textContent)
             // line break 
             // display.textContent += "\r\n";
-            onDisplay = [];
+            // onDisplay = [];
             console.log(onDisplay);
             // clear the ondisplay arr 
 
             
         } else {
             onDisplay[onDisplay.length] = e.target.textContent;
-            display.textContent += e.target.textContent;
+            display.value += e.target.textContent;
             console.log(e.target.textContent);
         }
     })
